@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.100",
+    "@lmnr-ai/lmnr": "^0.7.16",
     "ai": "^5.0.269",
     "zod": "^4.6.5"
   }
