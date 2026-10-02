@@ -36,6 +36,7 @@ export async function runAgent(
   });
 
   // console.log(text, toolCalls);
+  await Laminar.flush();
   console.log("done");
   console.log(text);
 
@@ -68,15 +69,16 @@ export async function runAgent(
 // Q3:-
 // runAgent("What is current time right now?");
 // runAgent("Hello");
-async function main() {
-  await runAgent("Hello");
-  await Laminar.shutdown();
-}
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// async function main() {
+//   await runAgent("Hello");
+//   await Laminar.shutdown();
+// }
+
+// main().catch((err) => {
+//   console.error(err);
+//   process.exit(1);
+// });
 
 // When we run this then we get the array of object where object is tools. (Here we don't getting
 // any text.)

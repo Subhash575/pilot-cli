@@ -1,18 +1,22 @@
 {
   "name": "pilot-cli",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "pilot": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
     "dev": "tsx --env-file=.env src/agent/run.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@biomejs/biome": "^2.5.14",
     "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/shelljs": "^0.8.17",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },
@@ -20,6 +24,11 @@
     "@ai-sdk/google": "^2.0.100",
     "@lmnr-ai/lmnr": "^0.7.16",
     "ai": "^5.0.269",
+    "dotenv": "^17.2.3",
+    "ink": "^6.5.1",
+    "ink-spinner": "^5.0.0",
+    "react": "^19.2.0",
+    "shelljs": "^0.10.0",
     "zod": "^4.6.5"
   }
 }

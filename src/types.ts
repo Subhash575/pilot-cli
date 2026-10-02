@@ -14,3 +14,9 @@ export interface TokenUsageInfo {
   threshold: number;
   percentage: number;
 }
+
+export interface ToolApprovalRequest {
+  toolName: string;
+  args: unknown;
+  resolve: (approved: boolean) => void;
+}
