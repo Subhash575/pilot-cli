@@ -15,3 +15,24 @@ export interface EvalData {
     temperature?: number;
   };
 }
+
+/**
+ * Target expectations for single-turn evaluations
+ */
+export interface EvalTarget {
+  /** Tools that MUST be selected (golden prompts) */
+  expectedTools?: string[];
+  /** Tools that MUST NOT be selected (negative prompts) */
+  forbiddenTools?: string[];
+  /** Category for grouping and filtering */
+  category: "golden" | "secondary" | "negative";
+}
+
+export interface SingleTurnResult {
+  /** Raw tool calls from the LLM */
+  toolCalls: Array<{ toolName: string; args: unknown }>;
+  /** Just the tool names for easy comparison */
+  toolNames: string[];
+  /** Whether any tool was selected */
+  selectedAny: boolean;
+}
