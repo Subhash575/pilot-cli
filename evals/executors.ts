@@ -12,7 +12,8 @@ import { buildMessages } from "./utils.ts";
 
 const TOOL_DEFINITIONS: any = {
   readFile: {
-    description: "Read the content of the file at the specific path",
+    description:
+      "Read the contents of a specific file. Use this whenever the user names a file path, even if you're unsure it exists.",
     parameters: z.object({
       path: z.string().describe("the path to the file that you want to read"),
     }),
@@ -29,7 +30,8 @@ const TOOL_DEFINITIONS: any = {
     }),
   },
   listFiles: {
-    description: "List all the files in a directory",
+    description:
+      "List the files in a directory. Only use this when the user asks what files exist or wants a directory's contents. Do NOT use it to look for a file whose path is already given.",
     parameters: z.object({
       path: z
         .string()
