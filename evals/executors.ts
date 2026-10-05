@@ -28,8 +28,8 @@ const TOOL_DEFINITIONS: any = {
         .describe("the content you want to write to the file."),
     }),
   },
-  listFile: {
-    description: "List the all the files in a directory",
+  listFiles: {
+    description: "List all the files in a directory",
     parameters: z.object({
       path: z
         .string()
@@ -52,7 +52,7 @@ const TOOL_DEFINITIONS: any = {
   },
 };
 
-export const singleTurnExecutor = async (data: EvalData) => {
+export const singleTurnExecutorWithMocks = async (data: EvalData) => {
   const messages = buildMessages(data);
 
   const tools: ToolSet = {};
@@ -65,6 +65,7 @@ export const singleTurnExecutor = async (data: EvalData) => {
 */
   for (const toolName of data.tools) {
     const def = TOOL_DEFINITIONS[toolName];
+    if (!def) throw new Error(`Unknown tool in eval data: ${toolName}`);
     if (def) {
       tools[toolName] = tool({
         description: def.description,
@@ -74,7 +75,7 @@ export const singleTurnExecutor = async (data: EvalData) => {
   }
 
   const { toolCalls } = await generateText({
-    model: google(data.config?.model ?? "gemini-2.5-flash"),
+    model: google(data.config?.model ?? "gemini-3.1-flash-lite"),
     messages,
     tools,
     stopWhen: stepCountIs(1),
@@ -85,6 +86,18 @@ export const singleTurnExecutor = async (data: EvalData) => {
     toolName: tc.toolName,
     args: "args" in tc ? tc.args : {},
   }));
+
+  /*
+In short, args is the object containing the actual values passed for the tool’s defined parameters.
+Parameter definition: path
+Argument value: "package.json"
+tc.args: { path: "package.json" }
+For writeFile, the parameters are path and content, so the arguments could be:
+{
+  path: "notes.txt",
+  content: "Hello world",
+}
+*/
 
   const toolNames = toolCalls.map((tc) => tc.toolName);
 

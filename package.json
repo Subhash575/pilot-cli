@@ -10,7 +10,9 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "dev": "tsx --env-file=.env src/agent/run.ts"
+    "dev": "tsx --env-file=.env src/agent/run.ts",
+    "eval": "npx lmnr eval",
+    "eval:file-tools": "npx lmnr eval evals/file-tools.eval.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.14",
